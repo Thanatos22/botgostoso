@@ -315,6 +315,34 @@ async function starts() {
 					buffer = await getBuffer(`https://imgur.com/${meme.hash}.jpg`)
 					client.sendMessage(from, buffer, image, {quoted: mek, caption: '🐒'})
 					break
+                case 'ytmp4':
+					if (args.length < 1) return reply('Cade o link macaco')
+					if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
+					anu = await fetchJson(`https://st4rz.herokuapp.com/api/ytv2?url=${args[0]}`, {method: 'get'})
+					if (anu.error) return reply(anu.error)
+					teks = `*Titulo 🐒* : ${anu.title}`
+					thumb = await getBuffer(anu.thumb)
+					client.sendMessage(from, thumb, image, {quoted: mek, caption: teks})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
+					break
+                case 'phlogo':
+					var gh = body.slice(9)
+					var gbl1 = gh.split("|")[0];
+					var gbl2 = gh.split("|")[1];
+					if (args.length < 1) return reply('Cadê o texto macaco')
+					reply(mess.wait)
+					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/textpro?theme=pornhub&text1=${gbl1}&text2=${gbl2}`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
+                case 'text3d':
+              	    if (args.length < 1) return reply('Cadê o texto macaco')
+                    teks = `${body.slice(8)}`
+                    if (teks.length > 10) return client.sendMessage(from, 'Grande pa carai essa porra', text, {quoted: mek})
+                    buff = await getBuffer(`https://docs-jojo.herokuapp.com/api/text3d?text=${teks}`, {method: 'get'})
+                    client.sendMessage(from, buff, image, {quoted: mek, caption: `${teks}`})
+			     	break
 				case 'setprefix':
 					if (args.length < 1) return
 					if (!isOwner) return reply(mess.only.ownerB)
