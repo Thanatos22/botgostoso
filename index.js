@@ -381,6 +381,18 @@ async function starts() {
 					}
 					client.sendMessage(from, teks, text, {detectLinks: false, quoted: mek})
 					break
+     		   case 'grp':
+					if (!isGroup) return reply(mess.only.group)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+					if (args[0] === 'open') {
+					    reply(`Grupo aberto com sucesso`)
+						client.groupSettingChange(from, GroupSettingChange.messageSend, false)
+					} else if (args[0] === 'close') {
+						reply(`Grupo fechado com sucesso`)
+						client.groupSettingChange(from, GroupSettingChange.messageSend, true)
+					}
+					break
 				case 'clearall':
 					if (!isOwner) return reply('Você não é meu Papai 😡')
 					anu = await client.chats.all()
